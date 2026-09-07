@@ -78,9 +78,9 @@ git clone https://github.com/TP-Prepare/review-frontend-homework-skill.git `
 
 ## Откуда взялись проверки
 
-`docs/design.md` — спека: разбор 2903 ревью-комментариев из
+`docs/specs/review-homework.md` — спека: разбор 2903 ревью-комментариев из
 `homework_2026_1` и `homework_2024_2`, частота тем, обоснование каждого
-уровня проверок. `docs/implementation-plan.md` — план реализации.
+уровня проверок. `docs/plans/review-homework.md` — план реализации.
 
 Если хочешь поспорить с каким-то пунктом чек-листа — начни со спеки,
 там видно, на скольких реальных ревью он основан.

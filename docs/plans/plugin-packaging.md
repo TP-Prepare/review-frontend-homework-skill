@@ -8,7 +8,7 @@
 
 **Tech Stack:** Markdown (Claude Code skill format с YAML-фронтматтером), JSON-манифесты по схеме `https://anthropic.com/claude-code/marketplace.schema.json`, `git`, `python` для валидации JSON.
 
-**Spec:** [`plugin-packaging-design.md`](plugin-packaging-design.md)
+**Spec:** [`specs/plugin-packaging.md`](../specs/plugin-packaging.md)
 
 ## Global Constraints
 
@@ -31,8 +31,8 @@
 |---|---|---|
 | `skills/review-homework/SKILL.md` | Точка входа скилла, переезжает из корня без изменения содержимого | 1 |
 | `skills/review-homework/references/*.md` | Четыре справочника, переезжают без изменения содержимого | 1 |
-| `docs/design.md` | Дизайн скилла. Правится дерево архитектуры и фраза про корень репы | 1 |
-| `docs/implementation-plan.md` | План сборки скилла. Правится историческая справка, утверждающая, что скилл в корне | 1 |
+| `docs/specs/review-homework.md` | Дизайн скилла. Правится дерево архитектуры и фраза про корень репы | 1 |
+| `docs/plans/review-homework.md` | План сборки скилла. Правится историческая справка, утверждающая, что скилл в корне | 1 |
 | `.claude-plugin/plugin.json` | Манифест плагина: имя, описание, версия, автор, лицензия | 2 |
 | `.claude-plugin/marketplace.json` | Манифест маркетплейса: одна запись с `"source": "./"` | 2 |
 | `LICENSE` | Текст лицензии MIT | 2 |
@@ -50,8 +50,8 @@
 - Move: `references/comment-bank.md` → `skills/review-homework/references/comment-bank.md`
 - Move: `references/gh-recipes.md` → `skills/review-homework/references/gh-recipes.md`
 - Move: `references/variants.md` → `skills/review-homework/references/variants.md`
-- Modify: `docs/design.md` — секция «Архитектура»
-- Modify: `docs/implementation-plan.md` — блок «Историческая справка»
+- Modify: `docs/specs/review-homework.md` — секция «Архитектура»
+- Modify: `docs/plans/review-homework.md` — блок «Историческая справка»
 
 **Interfaces:**
 - Consumes: ничего
@@ -114,7 +114,7 @@ done
 ```
 Expected: четыре строки, все `OK`.
 
-- [ ] **Step 6: Поправить дерево архитектуры в `docs/design.md`**
+- [ ] **Step 6: Поправить дерево архитектуры в `docs/specs/review-homework.md`**
 
 Заменить блок от строки с ``` перед `SKILL.md` до абзаца про корень репозитория включительно.
 
@@ -155,10 +155,13 @@ skills/review-homework/
 
 Репозиторий упакован как плагин Claude Code, поэтому скилл лежит в `skills/` —
 именно там Claude Code ищет скиллы плагина. Как это устроено — в
-[`plugin-packaging-design.md`](plugin-packaging-design.md).
+[`plugin-packaging.md`](plugin-packaging.md).
 ````
 
-- [ ] **Step 7: Поправить историческую справку в `docs/implementation-plan.md`**
+Ссылка относительная и указывает на соседний файл в `docs/specs/`, куда этот
+текст и вставляется.
+
+- [ ] **Step 7: Поправить историческую справку в `docs/plans/review-homework.md`**
 
 Справка сейчас прямо утверждает, что скилл лежит в корне. После переезда это ложь.
 
@@ -192,13 +195,13 @@ cd "F:/Github/TP-Prepare/review-frontend-homework-skill"
 grep -rn 'skills/review-homework' docs/ | head
 grep -n 'скилл лежит в корне\|занимает корень' docs/*.md README.md
 ```
-Expected: первая команда печатает свежие упоминания в `docs/design.md` и `docs/implementation-plan.md`; вторая не печатает ничего.
+Expected: первая команда печатает свежие упоминания в `docs/specs/review-homework.md` и `docs/plans/review-homework.md`; вторая не печатает ничего.
 
 - [ ] **Step 9: Проверить пустую строку в конце изменённых файлов**
 
 ```bash
 cd "F:/Github/TP-Prepare/review-frontend-homework-skill"
-for f in docs/design.md docs/implementation-plan.md skills/review-homework/SKILL.md; do
+for f in docs/specs/review-homework.md docs/plans/review-homework.md skills/review-homework/SKILL.md; do
   printf "%-45s " "$f"; [ "$(tail -c 1 "$f" | xxd -p)" = "0a" ] && echo OK || echo FAIL
 done
 ```
@@ -535,10 +538,10 @@ Expected ровно этот список:
 ./.gitignore
 ./LICENSE
 ./README.md
-./docs/design.md
-./docs/implementation-plan.md
-./docs/plugin-packaging-design.md
-./docs/plugin-packaging-plan.md
+./docs/plans/plugin-packaging.md
+./docs/plans/review-homework.md
+./docs/specs/plugin-packaging.md
+./docs/specs/review-homework.md
 ./skills/review-homework/SKILL.md
 ./skills/review-homework/references/checklist.md
 ./skills/review-homework/references/comment-bank.md
@@ -618,8 +621,8 @@ git push https://github.com/TP-Prepare/review-frontend-homework-skill.git feat/r
 | Скилл переезжает в `skills/review-homework/` | 1 |
 | Содержимое скилла не меняется | 1, шаги 1 и 3 |
 | Контракты скилла целы | 1, шаг 4 |
-| `docs/design.md` — дерево и фраза про корень | 1, шаг 6 |
-| `docs/implementation-plan.md` — историческая справка | 1, шаг 7 |
+| `docs/specs/review-homework.md` — дерево и фраза про корень | 1, шаг 6 |
+| `docs/plans/review-homework.md` — историческая справка | 1, шаг 7 |
 | `.claude-plugin/plugin.json` | 2, шаг 1 |
 | `.claude-plugin/marketplace.json` с `"source": "./"` | 2, шаг 2 |
 | Лицензия MIT | 2, шаг 3 |

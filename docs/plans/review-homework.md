@@ -8,7 +8,7 @@
 
 **Tech Stack:** Markdown (Claude Code skill format с YAML-фронтматтером), `gh` CLI 2.75+, GitHub REST API.
 
-**Spec:** [`design.md`](design.md)
+**Spec:** [`specs/review-homework.md`](../specs/review-homework.md)
 
 > **Историческая справка.** Это план, по которому скилл был собран 2026-09-07.
 > Пути вида `F:\Github\TP-Prepare\skills\review-homework\…` указывают на рабочую

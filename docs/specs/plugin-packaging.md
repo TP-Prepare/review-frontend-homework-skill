@@ -73,8 +73,14 @@ references/*.md          →  skills/review-homework/references/*.md
                             .claude-plugin/marketplace.json   (новый)
                             LICENSE                           (новый)
 README.md                →  README.md            (остаётся, меняется установка)
-docs/*.md                →  docs/*.md            (остаются)
+docs/specs/*.md          →  docs/specs/*.md      (остаются)
+docs/plans/*.md          →  docs/plans/*.md      (остаются)
 ```
+
+Доки уже разложены по назначению: `docs/specs/` и `docs/plans/`, парами с
+общим именем — `specs/review-homework.md` описывает то, что реализует
+`plans/review-homework.md`. Эта работа ничего в них не двигает, только правит
+устаревшие после переезда скилла места.
 
 ### Установка ломается и заменяется
 
@@ -93,9 +99,9 @@ git clone https://github.com/TP-Prepare/review-frontend-homework-skill.git /tmp/
 Переезд делает неверными три места, и все три надо поправить в том же заходе:
 
 1. `README.md` — раздел «Установка» и таблица «Структура» с путями `references/…`
-2. `docs/design.md` — дерево архитектуры и фраза про то, что скилл занимает
+2. `docs/specs/review-homework.md` — дерево архитектуры и фраза про то, что скилл занимает
    корень репозитория
-3. `docs/implementation-plan.md` — историческая справка прямо утверждает
+3. `docs/plans/review-homework.md` — историческая справка прямо утверждает
    «здесь скилл лежит в корне, без каталога `review-homework/`», что после
    переезда становится ложью
 
