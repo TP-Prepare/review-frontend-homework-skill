@@ -16,27 +16,36 @@
 
 ## Установка
 
-Персонально, для всех проектов — клонировать сразу в папку скиллов:
+Репозиторий — плагин Claude Code и одновременно собственный маркетплейс.
+Две команды в Claude Code:
+
+```
+/plugin marketplace add TP-Prepare/review-frontend-homework-skill
+/plugin install review-homework@tp-prepare
+```
+
+Дальше Claude Code сам следит за версией и обновлениями — `/plugin update`.
+
+### Без плагина
+
+Если плагины не подходят, скилл можно положить руками. Он самодостаточен:
 
 ```bash
-git clone https://github.com/TP-Prepare/review-frontend-homework-skill.git \
-  ~/.claude/skills/review-homework
+git clone https://github.com/TP-Prepare/review-frontend-homework-skill.git /tmp/rh \
+  && mkdir -p ~/.claude/skills \
+  && cp -r /tmp/rh/skills/review-homework ~/.claude/skills/
 ```
 
 На Windows, в PowerShell:
 
 ```powershell
-git clone https://github.com/TP-Prepare/review-frontend-homework-skill.git `
-  $HOME\.claude\skills\review-homework
+git clone https://github.com/TP-Prepare/review-frontend-homework-skill.git $env:TEMP\rh
+New-Item -ItemType Directory -Force $HOME\.claude\skills
+Copy-Item -Recurse $env:TEMP\rh\skills\review-homework $HOME\.claude\skills\
 ```
 
-Обновиться потом — `git pull` в этой папке.
-
-Либо в конкретный проект — клонировать в `.claude/skills/review-homework`
-его репозитория.
-
-Имя папки важно: Claude Code берёт имя скилла из неё, а `SKILL.md` лежит
-в корне этого репозитория.
+Либо в конкретный проект — скопировать `skills/review-homework` в
+`.claude/skills/` его репозитория.
 
 ## Использование
 
@@ -67,11 +76,13 @@ git clone https://github.com/TP-Prepare/review-frontend-homework-skill.git `
 
 | Файл | Что внутри |
 |---|---|
-| `SKILL.md` | Рабочий процесс из четырёх фаз. Точка входа |
-| `references/checklist.md` | 22 проверки: `A1`–`A6` блокирующие, `B1`–`B11` код, `C1`–`C5` тесты |
-| `references/comment-bank.md` | Сократические формулировки под каждый пункт чек-листа |
-| `references/variants.md` | 19 вариантов задания с подводными камнями |
-| `references/gh-recipes.md` | Команды `gh`: «Сбор» только читает, «Постинг» под подтверждением |
+| `skills/review-homework/SKILL.md` | Рабочий процесс из четырёх фаз. Точка входа |
+| `skills/review-homework/references/checklist.md` | 22 проверки: `A1`–`A6` блокирующие, `B1`–`B11` код, `C1`–`C5` тесты |
+| `skills/review-homework/references/comment-bank.md` | Сократические формулировки под каждый пункт чек-листа |
+| `skills/review-homework/references/variants.md` | 19 вариантов задания с подводными камнями |
+| `skills/review-homework/references/gh-recipes.md` | Команды `gh`: «Сбор» только читает, «Постинг» под подтверждением |
+| `.claude-plugin/plugin.json` | Манифест плагина |
+| `.claude-plugin/marketplace.json` | Манифест маркетплейса `tp-prepare` |
 
 Справочники грузятся по необходимости: при ревью `variant-12` не нужны
 подводные камни `variant-15`.
