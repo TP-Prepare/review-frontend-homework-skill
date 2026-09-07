@@ -1,0 +1,17 @@
+{
+  "name": "review-homework",
+  "description": "Ревью студенческих домашек по фронтенду в репозиториях frontend-park-mail-ru/homework_*: собирает контекст PR, проверяет по чек-листу и готовит ментору черновик сократического ревью",
+  "version": "1.0.0",
+  "author": {
+    "name": "Yaroslav Mihalev"
+  },
+  "homepage": "https://github.com/TP-Prepare/review-frontend-homework-skill",
+  "repository": "https://github.com/TP-Prepare/review-frontend-homework-skill",
+  "license": "MIT",
+  "keywords": [
+    "code-review",
+    "education",
+    "javascript",
+    "mentoring"
+  ]
+}

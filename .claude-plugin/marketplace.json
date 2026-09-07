@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "tp-prepare",
+  "description": "Скиллы для менторов Технопарка VK",
+  "owner": {
+    "name": "TP-Prepare"
+  },
+  "plugins": [
+    {
+      "name": "review-homework",
+      "description": "Ревью студенческих домашек по фронтенду в репозиториях frontend-park-mail-ru/homework_*",
+      "version": "1.0.0",
+      "source": "./",
+      "author": {
+        "name": "Yaroslav Mihalev"
+      },
+      "category": "development",
+      "homepage": "https://github.com/TP-Prepare/review-frontend-homework-skill"
+    }
+  ]
+}
