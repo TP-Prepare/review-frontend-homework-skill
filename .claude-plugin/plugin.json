@@ -1,7 +1,7 @@
 {
   "name": "review-homework",
   "description": "Ревью студенческих домашек по фронтенду в репозиториях frontend-park-mail-ru/homework_*: собирает контекст PR, проверяет по чек-листу и готовит ментору черновик сократического ревью",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "Yaroslav Mihalev"
   },
