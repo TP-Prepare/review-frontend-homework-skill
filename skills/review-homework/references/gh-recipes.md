@@ -167,7 +167,7 @@ gh pr edit N -R $R --remove-label "На проверке" --add-label "Нужн�
 
 # всё хорошо, передаём старшему ментору
 gh pr edit N -R $R --remove-label "Нужны исправления" --remove-label "На проверке" --add-label "ОК от ментора"
-gh pr edit N -R $R --add-assignee DPeshkoff
+gh pr edit N -R $R --add-assignee rissenberg
 
 # PR нацелен в master, или студент работал в форкнутом мастере (A1)
 gh pr edit N -R $R --add-label "Ошибочный"
@@ -235,6 +235,47 @@ GitHub пометит комментарий как отредактирован
 ```bash
 gh api "repos/$R/pulls/comments/<comment_id>" --method DELETE
 ```
+
+### Резолв тредов
+
+Делается при повторном ревью, после того как в Фазе 2 определён статус каждого
+прошлого замечания. Резолвим **только те треды, по которым студент реально
+исправил код или дал верный ответ**. Тред с незакрытым вопросом не трогаем —
+именно по счётчику нерешённых студент понимает, что ему осталось.
+
+Резолв живёт **только в GraphQL**, в REST его нет. Нужны node-id тредов, а не
+`comment_id`:
+
+```bash
+gh api graphql -f query='
+query {
+  repository(owner: "frontend-park-mail-ru", name: "homework_2026_2") {
+    pullRequest(number: N) {
+      reviewThreads(first: 50) {
+        nodes {
+          id
+          isResolved
+          comments(first: 1) { nodes { path line originalLine author { login } } }
+        }
+      }
+    }
+  }
+}' -q '.data.repository.pullRequest.reviewThreads.nodes[] | "\(.id)  resolved=\(.isResolved)  \(.comments.nodes[0].path):\(.comments.nodes[0].line // .comments.nodes[0].originalLine)"'
+```
+
+Затем по одному id на тред:
+
+```bash
+gh api graphql \
+  -f query='mutation($id: ID!) { resolveReviewThread(input: {threadId: $id}) { thread { id isResolved } } }' \
+  -f id=PRRT_xxxxx \
+  -q '"\(.data.resolveReviewThread.thread.id)  resolved=\(.data.resolveReviewThread.thread.isResolved)"'
+```
+
+Обратная операция — `unresolveReviewThread` с тем же аргументом.
+
+Резолвить чужие треды (открытые другим ментором) — только после отдельного
+подтверждения: по ним может идти разговор, которого ты не видишь.
 
 ### Просто комментарий без ревью
 
