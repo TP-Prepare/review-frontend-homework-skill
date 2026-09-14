@@ -77,7 +77,7 @@ Copy-Item -Recurse $env:TEMP\rh\skills\review-homework $HOME\.claude\skills\
 | Файл | Что внутри |
 |---|---|
 | `skills/review-homework/SKILL.md` | Рабочий процесс из четырёх фаз. Точка входа |
-| `skills/review-homework/references/checklist.md` | 22 проверки: `A1`–`A6` блокирующие, `B1`–`B11` код, `C1`–`C5` тесты |
+| `skills/review-homework/references/checklist.md` | 25 проверок: `A1`–`A6` блокирующие, `B0`–`B12` код, `C0`–`C5` тесты |
 | `skills/review-homework/references/comment-bank.md` | Сократические формулировки под каждый пункт чек-листа |
 | `skills/review-homework/references/variants.md` | 19 вариантов задания с подводными камнями |
 | `skills/review-homework/references/gh-recipes.md` | Команды `gh`: «Сбор» только читает, «Постинг» под подтверждением |
