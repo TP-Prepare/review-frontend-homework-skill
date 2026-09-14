@@ -92,21 +92,32 @@ gh api "repos/$R/issues/N/assignees" --method POST -f "assignees[]=$ME"
 gh pr view N -R $R --json labels -q '[.labels[].name] | join(", ")'
 ```
 
+Лейбла нет — в этом репозитории (или потоке) может не быть автоматики.
+Поставить вручную:
+
+```bash
+gh pr edit N -R $R --add-label "На проверке"
+```
+
 ### Откат ассайна
 
-Если ментор после черновика отказался от постинга — PR нельзя оставлять
-помеченным как взятый.
+Если ментор после черновика отказался от постинга — откатывается только то,
+что в этом прогоне поставил сам скилл: ассайн и лейбл «На проверке». Рецепт
+применим только при статусе **свободен** из Фазы 0 — это скилл сам взял PR.
 
 ```bash
 gh pr edit N -R $R --remove-assignee @me --remove-label "На проверке"
 ```
+
+При статусе **твой** этот рецепт не выполняется: ассайн и лейбл поставил
+ментор ещё до запуска скилла, снимать их или нет — решает он сам.
 
 ## Сбор
 
 ### Метаданные PR
 
 ```bash
-gh pr view N -R $R --json number,title,author,baseRefName,headRefName,labels,assignees,isCrossRepository,changedFiles,additions,deletions,url
+gh pr view N -R $R --json number,title,author,baseRefName,headRefName,isCrossRepository,changedFiles,additions,deletions,url
 ```
 
 `baseRefName` даёт вариант. `isCrossRepository: true` — норма, студенты форкают.
@@ -239,12 +250,11 @@ gh api "repos/$R/pulls/N/reviews" --method POST --input "${TMPDIR:-/tmp}/review.
 
 ### Лейблы
 
-Ставить ровно один статусный лейбл, предыдущий снимать.
+Ставить ровно один статусный лейбл, предыдущий снимать. «На проверке» уже
+поставлен в Фазе 0 (автоматикой или вручную — рецепт «Ассайн» в секции
+«Старт»), здесь его не ставим.
 
 ```bash
-# взял в работу
-gh pr edit N -R $R --add-label "На проверке"
-
 # отправил замечания
 gh pr edit N -R $R --remove-label "На проверке" --add-label "Нужны исправления"
 
