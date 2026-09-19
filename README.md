@@ -85,7 +85,7 @@ Copy-Item -Recurse $env:TEMP\rh\skills\review-homework $HOME\.claude\skills\
 | `skills/review-homework/references/checklist.md` | 25 проверок: `A1`–`A6` блокирующие, `B0`–`B12` код, `C0`–`C5` тесты |
 | `skills/review-homework/references/comment-bank.md` | Сократические формулировки под каждый пункт чек-листа |
 | `skills/review-homework/references/variants.md` | 19 вариантов задания с подводными камнями |
-| `skills/review-homework/references/gh-recipes.md` | Команды `gh`: «Сбор» только читает, «Постинг» под подтверждением |
+| `skills/review-homework/references/gh-recipes.md` | Команды `gh`: «Сбор» читает, кроме одобрения гейта CI без подтверждения; «Постинг» под подтверждением |
 | `.claude-plugin/plugin.json` | Манифест плагина |
 | `.claude-plugin/marketplace.json` | Манифест маркетплейса `tp-prepare` |
 

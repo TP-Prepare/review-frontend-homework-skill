@@ -147,7 +147,7 @@ gh pr checks N -R $R
 Если печатает `no checks reported` — проверить, не ждёт ли запуск одобрения:
 
 ```bash
-gh run list -R $R --branch <headRefName> --json conclusion,databaseId
+gh run list -R $R --branch <headRefName> --limit 5 --json conclusion,databaseId,headSha
 ```
 
 `conclusion: action_required` (длительность `0s`) — это гейт GitHub для
@@ -160,10 +160,18 @@ gh api "repos/$R/actions/runs/<databaseId>/approve" --method POST
 gh run watch <databaseId> -R $R --exit-status
 ```
 
-`databaseId` — из `gh run list` выше. После `gh run watch` статус читается
-заново, и в черновик идёт он, а не «ждёт одобрения».
+Домашний PR по правилу 3 никогда не мержится, поэтому студент остаётся первым
+контрибьютором весь курс и каждый пуш создаёт новый гейтнутый запуск — в
+списке `gh run list` может быть несколько `action_required`. `databaseId`
+берём у того запуска, чей коммит из вывода выше совпадает с головным коммитом
+PR (сверяем с `headRefOid` из метаданных Фазы 1); одобрение запуска для
+другого коммита положит в черновик статус CI по устаревшему коду. После
+`gh run watch` статус читается заново, и в черновик идёт он, а не «ждёт
+одобрения». Ненулевой код `gh run watch` здесь означает «CI красный» (упал
+`eslint` или `karma`), а не что команда сломалась — это результат, его
+читаем и кладём в черновик, а не перезапускаем.
 
-Если прав не хватает:
+Пробуем `approve`; если ответ `403` — прав не хватает, тогда смотрим:
 
 ```bash
 gh api "repos/$R" -q .permissions.push
